@@ -1,0 +1,32 @@
+name: Deploy Serverless App
+
+on:
+  pull_request:
+    branches:
+      - '*'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      AWS_ACCESS_KEY_ID: AKIAQMEHTNTG73JRK56O
+      AWS_SECRET_ACCESS_KEY: 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
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Install Serverless Framework
+        run: npm install -g serverless
+
+
+      - name: Set Environment Variables
+        env:
+          BRANCH_VARIABLE: ${{ github.event.pull_request.base.ref }}
+        run: |
+          echo "BRANCH_VARIABLE=$BRANCH_VARIABLE" >> $GITHUB_ENV
+
+      - name: Deploy Serverless App
+        if: github.event_name == 'pull_request'
+        run: |
+          echo "Deploying to $BRANCH_VARIABLE..."
+          npx serverless deploy --stage $BRANCH_VARIABLE
