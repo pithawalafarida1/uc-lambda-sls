@@ -1,0 +1,33 @@
+service: uc-lambda-sls
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: python3.9
+  region: ap-south-1
+  stage: ${opt:stage, 'develop'}
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:DescribeStream
+        - dynamodb:GetRecords
+        - dynamodb:GetShardIterator
+        - dynamodb:ListStreams
+        - s3:PutObject
+      Resource: "*"
+
+functions:
+  s3_to_dynamo_1: 
+    handler: lambdas/dynamo_to_s3_1.lambda_handler
+    events: 
+      - stream: 
+          type: dynamodb
+          arn: arn:aws:dynamodb:ap-south-1:026054192333:table/NameInfo/stream/2023-09-20T09:52:16.546
+
+  s3_to_dynamo_2: 
+    handler: lambdas/dynamo_to_s3_2.lambda_handler
+    events: 
+      - stream: 
+          type: dynamodb
+          arn: arn:aws:dynamodb:ap-south-1:026054192333:table/NameInfo/stream/2023-09-20T09:52:16.546

@@ -1,0 +1,17 @@
+{
+  "name": "lambda-functions",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "sls": "npx serverless",
+    "deploy": "npm run sls deploy",
+    "remove": "npm run sls remove"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "serverless": "^3.35.2"
+  }
+}
