@@ -20,6 +20,7 @@ provider:
 functions:
   s3_to_dynamo_1: 
     handler: lambdas/dynamo_to_s3_1.lambda_handler
+    name: ${self:service}-${self:provider.stage}
     events: 
       - stream: 
           type: dynamodb

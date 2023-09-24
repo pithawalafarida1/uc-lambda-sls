@@ -1,0 +1,25 @@
+name: Deploy Serverless App
+
+on:
+  pull_request:
+    branches:
+      - '*'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Set Environment Variables
+        env:
+          BRANCH_VARIABLE: ${{ github.event.pull_request.base.ref }}
+        run: |
+          echo "BRANCH_VARIABLE=$BRANCH_VARIABLE" >> $GITHUB_ENV
+
+      - name: Deploy Serverless App
+        if: github.event_name == 'pull_request'
+        run: |
+          echo "Deploying to $BRANCH_VARIABLE..."
+          npx serverless deploy --stage $BRANCH_VARIABLE
