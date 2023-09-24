@@ -8,6 +8,9 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      AWS_ACCESS_KEY_ID: AKIAQMEHTNTG73JRK56O
+      AWS_SECRET_ACCESS_KEY: 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
     steps:
       - name: Check out code
         uses: actions/checkout@v2
