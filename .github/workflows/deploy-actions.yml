@@ -12,6 +12,10 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v2
 
+      - name: Install Serverless Framework
+        run: npm install -g serverless
+
+
       - name: Set Environment Variables
         env:
           BRANCH_VARIABLE: ${{ github.event.pull_request.base.ref }}
